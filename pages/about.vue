@@ -1,9 +1,5 @@
 <template>
-    <div>
-        <h2 align="center">About</h2>
-        <RecipeForm/>
-    </div>
+  <div>
+    <h2 align="center">About</h2>
+  </div>
 </template>
-
-
-

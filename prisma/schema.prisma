@@ -10,19 +10,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Recipe {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  origin      String?
-  ingredients String[]
-  steps       String[]
-  image       String
-  categoryIDs String[]   @db.ObjectId
-  categories  Category[] @relation(fields: [categoryIDs], references: [id])
+model Student {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  program   Program @relation(fields: [programId], references: [id])
+  programId String  @db.ObjectId
 }
 
-model Category {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  recipeIDs String[] @db.ObjectId
-  recipe    Recipe[] @relation(fields: [recipeIDs], references: [id])
+model Program {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  students Student[]
+  course   Course[]  @relation(fields: [courseId], references: [id])
+  courseId String[]  @db.ObjectId
+}
+
+model Course {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  program   Program[] @relation(fields: [programId], references: [id])
+  programId String[]  @db.ObjectId
 }

@@ -20,60 +20,12 @@
         <w-input label="Cooking Step" v-model="prepStep" />
         <i class="bx bx-plus" @click="addStep" />
         <br />
-        <w-button bg-color="success" @click="open" id="upload_widget"
-          >Upload Image</w-button
-        >
       </w-form>
     </w-flex>
   </div>
 </template>
 
 <script setup>
-useHead({
-  script: [
-    {
-      src: "https://widget.cloudinary.com/v2.0/global/all.js",
-      type: "text/javascript",
-    },
-  ],
-});
-let myWidget;
-
-function open() {
-  myWidget.open();
-}
-onMounted(() => {
-  myWidget = cloudinary.createUploadWidget(
-    {
-      cloudName: "rozes",
-      uploadPreset: "xnrhcleq",
-      // cropping: true, //add a cropping step
-      // showAdvancedOptions: true,  //add advanced options (public_id and tag)
-      // sources: [ "local", "url"], // restrict the upload sources to URL and local files
-      // multiple: false,  //restrict upload to a single file
-      folder: "recipe-images", //upload files to the specified folder
-      // tags: ["users", "profile"], //add the given tags to the uploaded files
-      // context: {alt: "user_uploaded"}, //add the given context data to the uploaded files
-      // clientAllowedFormats: ["images"], //restrict uploading to image files only
-      // maxImageFileSize: 2000000,  //restrict file size to less than 2MB
-      // maxImageWidth: 2000, //Scales the image down to a width of 2000 pixels before uploading
-      // theme: "purple", //change to a purple theme
-    },
-    (error, result) => {
-      if (!error && result && result.event === "success") {
-        console.log("Done! Here is the image info: ", result.info);
-        document
-          .getElementById("uploadedimage")
-          .setAttribute("src", result.info.secure_url);
-        console.log(result.info.secure_url);
-        image.value = result.info.secure_url;
-      }
-    }
-  );
-});
-//const cloudName = "rozes"; // replace with your own cloud name
-//const uploadPreset = "xnrhcleq"; // replace with your own upload preset
-
 const name = ref("");
 const origin = ref("");
 const description = ref("");
@@ -87,12 +39,11 @@ const categories = ref([
   { label: "Pastries" /*, value: "pastries"*/ },
 ]);
 const selectedCategory = ref(null);
-console.log(selectedCategory.value);
+console.warn(selectedCategory.value);
 const inMeasure = ref("");
 const ingredients = ref([]);
 const prepStep = ref("");
 const cookingSteps = ref([]);
-const image = ref("");
 function addIn() {
   if (inMeasure.value !== "") {
     ingredients.value.push(inMeasure.value);
